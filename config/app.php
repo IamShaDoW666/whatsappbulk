@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost/bulkwhatsapp'),
     'url_wa' => env('WA_URL_SERVER'),
 
     'asset_url' => env('ASSET_URL', null),

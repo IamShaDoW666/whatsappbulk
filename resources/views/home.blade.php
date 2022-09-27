@@ -92,7 +92,7 @@
                                     <h5 class="">List Devices </h5><span class="text-warning text-sm">*You have {{$limit_device}} limit devices</span>
                                 </div>
                                 <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#addDevice"><i class="material-icons">add</i>Add </button>
-                                <table class="table table-striped">
+                                <table class="table table-striped" style = "width:100%; word-break: break-all;">
                                     <thead>
                                         <th>Number</th>
                                         <th>Webhook</th>

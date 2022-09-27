@@ -17,28 +17,14 @@ class NumberSeeder extends Seeder
         $data = [
             [
                 'user_id' => 1,
-                'body' => '6282298859671',
+                'body' => '917012749946',
                 'webhook' => '',
                 'status' => 'Disconnect',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
-            [
-                'user_id' => 1,
-                'body' => '6289522811620',
-                'webhook' => '',
-                'status' => 'Disconnect',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'user_id' => 1,
-                'body' => '6281511684195',
-                'webhook' => '',
-                'status' => 'Disconnect',
-                'created_at' => now(),
-                'updated_at' => now()
-            ]
+           
+           
         ];
 
        foreach($data as $d){

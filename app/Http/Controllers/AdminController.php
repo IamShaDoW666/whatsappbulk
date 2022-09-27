@@ -1,8 +1,5 @@
 <?php
-
-
 namespace App\Http\Controllers;
-
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -31,9 +28,9 @@ class AdminController extends Controller
             $request->validate([
                'subscription_expired' => 'required|date',
             ]);
-
+            $date=date('Y-m-d H:i:s');
             // subscription expired must be greater than today
-            if($request->subscription_expired < date('Y-m-d')){
+            if($request->subscription_expired  <date('Y-m-d',strtotime($date. ' + 1 years'))){
                 return redirect()->back()->with('alert' , ['type' => 'danger', 'msg' => 'Subscription expired must be greater than today']);
             }
         }
@@ -65,11 +62,11 @@ class AdminController extends Controller
         $request->validate([
             'username' => 'required|unique:users,username,'.$request->id,
             'email' => 'required|unique:users,email,'.$request->id,
-            'limit_device' => 'required|numeric|max:2000',
-            'active_subscription' => 'required|',
+            'limit_device' => 'required|numeric|max:10',
+            /*'active_subscription' => 'required|',*/
 
         ]);
-        if($request->active_subscription == 'active'){
+        /*if($request->active_subscription == 'active'){
             $request->validate([
                'subscription_expired' => 'required|date',
             ]);
@@ -84,14 +81,14 @@ class AdminController extends Controller
             $request->validate([
                 'password' => 'min:6',
             ]);
-        }
+        }*/
         $user = User::find($request->id);
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = $request->password != '' ? bcrypt($request->password) : $user->password;
         $user->limit_device = $request->limit_device;
         $user->active_subscription = $request->active_subscription;
-        $user->subscription_expired = $request->subscription_expired ?? null;
+        /*$user->subscription_expired = $request->subscription_expired ?? null;*/
         $user->save();
         return redirect()->back()->with('alert', ['type' => 'success', 'msg' => 'User updated successfully']);
     }

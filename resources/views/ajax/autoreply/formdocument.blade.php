@@ -11,7 +11,7 @@
                      <input id="thumbnail" class="form-control"  type="text" name="document" readonly>
                    </div>
 
-                    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+                    <script src="/bulkwhatsapp/public/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script>
   $('#image').filemanager('file')
 </script>

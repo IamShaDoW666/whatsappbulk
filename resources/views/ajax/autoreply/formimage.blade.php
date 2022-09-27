@@ -12,7 +12,7 @@
                     <label for="caption" class="form-label">Caption</label>
                     <textarea type="text" name="caption" class="form-control" id="caption" required> </textarea>
 
-                    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+                    <script src="/bulkwhatsapp/public/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script>
   $('#image').filemanager('file')
 </script>

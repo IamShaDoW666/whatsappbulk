@@ -1,9 +1,8 @@
 <x-layout-dashboard title="Auto Replies">
   
     <div class="app-content">
-        <link href="{{asset('plugins/datatables/datatables.min.css')}}" rel="stylesheet">
-
-        <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+        <!--<link href="{{asset('plugins/datatables/datatables.min.css')}}" rel="stylesheet">-->
+        <!--<link href="{{asset('css/custom.css')}}" rel="stylesheet">-->
         <div class="content-wrapper">
             <div class="container">
                 @if (session()->has('alert'))
@@ -27,17 +26,16 @@
     
 <div class="row mt-4">
   <div class="col">
-      <div class="card">
-          <div class="card-header d-flex justify-content-between">
-          <h5 class="card-title">Users</h5>
-
+  <div class="card">
+   <div class="card-header d-flex justify-content-between">
+    <h5 class="card-title">Users</h5>
          
-            <button type="button" class="btn btn-primary" onclick="addUser()" >
+            <!--<button type="button" class="btn btn-primary" onclick="addUser()" >
                 Add User
-            </button>
+            </button>-->
           </div>
           <div class="card-body">
-              <table id="datatable1" class="display" style="width:100%">
+              <table id="datatable1" class="display" style="width:100%; border-width:1px; word-break: break-all;">
                   <thead>
                       <tr>
                           <th>Username</th>
@@ -88,16 +86,16 @@
                                     }
                                 @endphp
                             </td>
-                            <td class="d-flex justify-content-center">
+                            <td >
                                 <button type="button" class="btn btn-primary" onclick="editUser({{$user->id}})">
                                     Edit
                                 </button>
-                                <form action="{{route('user.delete',$user->id)}}"  method="POST" onsubmit="return confirm('Are you sure will delete this user ? all data user also will deleted')">
+                                <!--<form action="{{route('user.delete',$user->id)}}"  method="POST" onsubmit="return confirm('Are you sure will delete this user ? all data user also will deleted')">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="id" value="{{$user->id}}">
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
+                                </form>-->
                             </td>
                         </tr>
                         @endforeach
@@ -120,7 +118,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST" enctype="multipart/form-data" id="formUser">
+            <form action="" method="POST" enctype="multipart/form-data" id="formUser">
                     @csrf
                     <input type="hidden" id="iduser" name="id" >
                     <label for="username" class="form-label">Username</label>
@@ -131,14 +129,13 @@
                     <input type="password" name="password" id="password" class="form-control" value="" >
                     <label for="limit_device" class="form-label">Limit Device</label>
                     <input type="number" name="limit_device" id="limit_device" class="form-control" value="">
-                    <label for="active_subscription" class="form-label">Active Subscription</label><br>
-                    <select name="active_subscription" id="active_subscription" class="form-control">
+                    <label for="active_subscription" class="form-label">One Year Licence</label><br>
+                    <select name="active_subscription" id="active_subscription" class="form-control" readonly>
                         <option value="active" selected>Active</option>
-                        <option value="inactive">Inactive</option>
-                        <option value="lifetime">Lifetime</option>
+                        
                     </select><br>
-                    <label for="subscription_expired" class="form-label">Subscription Expired</label>
-                    <input type="date" name="subscription_expired" id="subscription_expired" class="form-control" value="">
+                    <label for="subscription_expired" class="form-label">Renew Your Licence</label>
+                    <input type="licence" name="licence_expired"   id="licence_expired" class="form-control" placeholder="One year licence"  value=""  readonly>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

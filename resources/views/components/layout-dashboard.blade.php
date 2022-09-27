@@ -1,23 +1,14 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-{{-- 
-    
-Copyright By Ilman Sunanuddin, M pedia
-Email : Ilmansunannudin2@gmail.com / admin@m-pedia.my.id
-Whatsap : 6282298859671
-------------------------------------------------------------------
-Dilarang share atau menjual belikan source code ini tanpa izin ya bos! biar berkah hehe
---}}
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="MPWA MD V3.5.0 ,Whatsapp gateway Multi device Beta version">
+    <meta name="description" content="SPOT MESSAGE ,Whatsapp gateway Multi device Beta version">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <meta name="keywords" content="waapi,wa gateway, whatsapp blast, wamp, mpwa, m pedia wa gateway, wa gateway m pedia, ">
-    <meta name="author" content="Ilman Sunanuddin , M pedia">
-    <title>{{ $title }} | MPWA Multi device version</title>
+    <meta name="keywords" content="whatsapp bulk messages,whatsapp Api,whatsapp chat bot, whatsapp message sender, ">
+    <meta name="author" content="saakshi solutions , Spot message">
+    <title>{{ $title }} | SPOT MESSAGE</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap" rel="stylesheet">

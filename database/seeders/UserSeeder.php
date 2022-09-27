@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+
 use Illuminate\Support\Str;
 class UserSeeder extends Seeder
 {
@@ -16,13 +17,14 @@ class UserSeeder extends Seeder
     {
       
        $user = [
-           'id' => 1,
+        'id' => 1,
         'username' => 'admin',
-        'email' => 'ilmansunannudin2@gmail.com',
+        'email' => 'saakshicctv@gmail.com',
         'email_verified_at' => now(),
         'password' => bcrypt(123456),
         'api_key' => Str::random(15),
-        'chunk_blast' =>100
+        'chunk_blast' =>100,
+        'subscription_expired' => date('Y-m-d', strtotime('+1 year'))
     ];
 
     User::create($user);

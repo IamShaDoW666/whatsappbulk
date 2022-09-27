@@ -255,7 +255,7 @@ class AutoreplyController extends Controller
                         ])->render();
                     break;
                 case 'template':
-                  
+                
               $templates = [];
               // if exists template 1
 
@@ -280,6 +280,7 @@ class AutoreplyController extends Controller
                 case 'text':
                    return view('ajax.autoreply.formtext')->render();
                     break;
+                    
                 case 'image' :
                     return view('ajax.autoreply.formimage')->render();
                     break;

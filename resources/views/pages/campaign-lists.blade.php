@@ -42,7 +42,7 @@
              
           </div>
           <div class="card-body">
-              <table id="datatable1" class="display" style="width:100%">
+              <table id="datatable1" class="display" style="width:100%;word-break: break-all;">
                   <thead>
                       <tr>
                           <th>Sender</th>

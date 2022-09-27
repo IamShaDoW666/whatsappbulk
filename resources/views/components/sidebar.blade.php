@@ -2,11 +2,11 @@
 <div class="app align-content-stretch d-flex flex-wrap">
     <div class="app-sidebar">
         <div class="logo">
-            <a href="{{route('home')}}" class="logo-icon"><span class="logo-text">MPWA</span></a>
+            <a href="{{route('home')}}" class="logo-icon"><span class="logo-text">SPOT</span></a>
             <div class="sidebar-user-switcher user-activity-online">
-                <a href="/">
-                    <img src="{{asset('images/avatars/avatar2.png')}}">
-                    <span class="activity-indicator"></span>
+                <a href="{{route('home')}}">
+                    <!--<img src="{{asset('images/avatars/avatar2.png')}}">-->
+                    <!--<span class="activity-indicator"></span>-->
                     <span class="user-info-text">{{ Auth::user()->username}}<br></span>
                 </a>
             </div>
@@ -62,7 +62,7 @@
                     <a href="{{route('settings')}}"><i class="material-icons-two-tone">settings</i>Setting Server</a>
                 </li>
                 <li class="{{request()->is('admin/manage-user') ? 'active-page' : ''}}">
-                    <a href="{{route('admin.manageUser')}}"><i class="material-icons-two-tone">people</i>User Manager</a>
+                    <a href="{{route('admin.manageUser')}}"><i class="material-icons-two-tone">people</i>Admin Profile</a>
                 </li>
                 @endif
                
