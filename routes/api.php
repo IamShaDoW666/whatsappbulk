@@ -37,7 +37,7 @@ Route::post('/save-number', function (Request $request) {
   $user = User::where('api_key', $request->api_key)->first();
   $tag = Tag::where('name', 'Spot Group')->first();
   if (!$tag) {
-    Tag::create([
+    $tag = Tag::create([
       'user_id' => $user->id,
       'name' => 'Spot Group'
     ]);
