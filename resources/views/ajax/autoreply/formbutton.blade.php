@@ -20,7 +20,7 @@
 
 
 
-  <script src="/bulkwhatsapp/public/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+  <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script>
     // add button when click add button maximal 3 button
     $(document).ready(function() {

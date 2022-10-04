@@ -2,7 +2,7 @@
 $('#type').on('change', () => {
     const type = $('#type').val();
     $.ajax({
-        url: `/bulkwhatsapp/public/autoreply/${type}`,
+        url: `/autoreply/${type}`,
         type: 'GET',
         dataType: 'html',
         success: (result) => {
@@ -18,7 +18,7 @@ $('#type').on('change', () => {
 
 function viewReply(id) {
     $.ajax({
-        url: `/bulkwhatsapp/public/autoreply/show-reply/${id}`,
+        url: `/autoreply/show-reply/${id}`,
         type: 'GET',
         dataType: 'html',
         success: (result) => {

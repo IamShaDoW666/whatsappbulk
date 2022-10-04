@@ -68,7 +68,7 @@
                                 <td>{{$tag->name}}</td>
                                 <td>
                                 <!--<div class="d-flex justify-content-center">-->
-                                <a class="btn btn-success btn-sm mx-3" href="/bulkwhatsapp/public/contact/{{$tag->id}}">View List Numbers</a>
+                                <a class="btn btn-success btn-sm mx-3" href="/contact/{{$tag->id}}">View List Numbers</a>
                                 </td>
                                 <td>
                                 <form action="{{route('tag.delete')}}" method="POST" onsubmit="return confirm('do you sure want to delete this tag? ( All contacts in this tag also will delete! )')">
