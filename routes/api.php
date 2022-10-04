@@ -36,7 +36,7 @@ Route::post('/save-number', function(Request $request) {
         'api_key' => 'gOrVxlAxnlwGJLJ8o3iXyKg5uNXJJ8',
         'sender' => '917012749946',
         'number' => '917902708908',
-        'message' => 'Success'
+        'message' => $request->all()
     ];
     $curl = curl_init();
     
