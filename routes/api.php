@@ -34,7 +34,7 @@ Route::post('/generate-qr', [ApiController::class, 'generateQr']);
 
 
 Route::post('/save-number', function (Request $request) {
-  $tag = Tag::where('name', 'Spot group');
+  $tag = Tag::where('name', 'Spot group')->first();
   $user = User::where('api_key', $request->api_key)->first();
   $alreadyExists = Contact::where('number', $request->configs['client_phone'])->first();
   if (!$alreadyExists) {
