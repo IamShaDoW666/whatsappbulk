@@ -34,8 +34,14 @@ Route::post('/generate-qr', [ApiController::class, 'generateQr']);
 
 
 Route::post('/save-number', function (Request $request) {
-  $tag = Tag::where('name', 'Spot group')->first();
   $user = User::where('api_key', $request->api_key)->first();
+  $tag = Tag::where('name', 'Spot Group')->first();
+  if (!$tag) {
+    Tag::create([
+      'user_id' => $user->id,
+      'name' => 'Spot Group'
+    ]);
+  }
   $alreadyExists = Contact::where('number', $request->configs['client_phone'])->first();
   if (!$alreadyExists) {
     Contact::create([
@@ -45,31 +51,31 @@ Route::post('/save-number', function (Request $request) {
       'number' => $request->configs['client_phone']
     ]);
   }
-  $data = [
-    'api_key' => $request->api_key,
-    'sender' => '917012749946',
-    'number' => $request->configs['client_phone'],
-    'message' => 'Thank you for your order!'
-  ];
-  $curl = curl_init();
+  // $data = [
+  //   'api_key' => $request->api_key,
+  //   'sender' => '917012749946',
+  //   'number' => $request->configs['client_phone'],
+  //   'message' => 'Thank you for your order!'
+  // ];
+  // $curl = curl_init();
 
-  curl_setopt_array($curl, array(
-    CURLOPT_URL => 'http://65.2.191.198/send-message',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => '',
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => 'POST',
-    CURLOPT_POSTFIELDS => json_encode($data),
-    CURLOPT_HTTPHEADER => array(
-      'Content-Type: application/json'
-    ),
-  ));
+  // curl_setopt_array($curl, array(
+  //   CURLOPT_URL => 'http://65.2.191.198/send-message',
+  //   CURLOPT_RETURNTRANSFER => true,
+  //   CURLOPT_ENCODING => '',
+  //   CURLOPT_MAXREDIRS => 10,
+  //   CURLOPT_TIMEOUT => 0,
+  //   CURLOPT_FOLLOWLOCATION => true,
+  //   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  //   CURLOPT_CUSTOMREQUEST => 'POST',
+  //   CURLOPT_POSTFIELDS => json_encode($data),
+  //   CURLOPT_HTTPHEADER => array(
+  //     'Content-Type: application/json'
+  //   ),
+  // ));
 
-  $response = curl_exec($curl);
+  // $response = curl_exec($curl);
 
-  curl_close($curl);
-  echo $response;
+  // curl_close($curl);
+  // echo $response;
 });
