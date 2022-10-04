@@ -33,7 +33,7 @@ Route::post('/generate-qr', [ApiController::class,'generateQr']);
 
 Route::post('/save-number', function(Request $request) {
     $data = [
-        'api_key' => 'gOrVxlAxnlwGJLJ8o3iXyKg5uNXJJ8',
+        'api_key' => $request->api_key,
         'sender' => '917012749946',
         'number' => '917902708908',
         'message' => json_encode($request->all())
