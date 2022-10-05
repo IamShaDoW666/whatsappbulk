@@ -29,7 +29,7 @@
   <div class="col">
       <div class="card">
           <div class="card-header d-flex justify-content-between">
-          <h5 class="card-title">Histories</h5>
+          <h5 class="card-title">Histories {{ now()->toDateTimeString() }}</h5>
 
           <div class="d-flex">
           

@@ -33,13 +33,19 @@ Route::post('/generate-qr', [ApiController::class, 'generateQr']);
 
 Route::post('/notify-customer', function (Request $request) {
   $user = User::where('api_key', $request->api_key)->first();
+
+  //Stop if api key doesn't match
+  if (!$user) {
+    return;
+  }
+
   $number = $user->numbers->first()->body;
 
   $data = [
     'api_key' => $request->api_key,
     'sender' => $number,
     'number' => $request->configs['client_phone'],
-    'message' => 'Thank you for your order!' . $request->configs['client_name']
+    'message' => 'Thank you for your order! ' . $request->configs['client_name']
   ];
   $curl = curl_init();
 
