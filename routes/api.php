@@ -72,6 +72,12 @@ Route::post('/notify-customer', function (Request $request) {
 
 Route::post('/save-number', function (Request $request) {
   $user = User::where('api_key', $request->api_key)->first();
+
+  //Stop if api key doesn't match
+  if (!$user) {
+    return;
+  }
+
   $tag = Tag::where('name', 'Spot Group')->first();
   if (!$tag) {
     $tag = Tag::create([
