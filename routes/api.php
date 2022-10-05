@@ -45,7 +45,7 @@ Route::post('/notify-customer', function (Request $request) {
     'api_key' => $request->api_key,
     'sender' => $number,
     'number' => $request->configs['client_phone'],
-    'message' => 'Thank you for your order! ' . $request->configs['client_name']
+    'message' => $request->msg
   ];
   $curl = curl_init();
 
