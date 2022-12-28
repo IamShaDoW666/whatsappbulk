@@ -103,14 +103,14 @@ Route::post('/save-number', function (Request $request) {
         return;
     }
 
-    $tag = Tag::where('name', $request->group)->first();
+    $tag = $user->tags->where('name', $request->group)->first();
     if (!$tag) {
         $tag = Tag::create([
             'user_id' => $user->id,
             'name' => $request->group
         ]);
     }
-    $alreadyExists = Contact::where('number', $request->number)->first();
+    $alreadyExists = $tag->contacts->where('number', $request->number)->first();
     if (!$alreadyExists) {
         Contact::create([
             'user_id' => $user->id,
