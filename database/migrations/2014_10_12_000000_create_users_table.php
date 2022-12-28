@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->integer('limit_device')->default(0);
             $table->enum('active_subscription', ['inactive', 'active','lifetime','trial'])->default('active');
-            $table->dateTime('subscription_expired')->strtotime(date('Y-m-d H:i:s'). ' + 1 years');
+            $table->dateTime('subscription_expired')->default(now()->addYears(1));
             $table->rememberToken();
             $table->timestamps();
         });

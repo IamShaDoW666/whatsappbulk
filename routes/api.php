@@ -22,6 +22,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/test', function() {
+    $user = User::find(1);
+    $number = $user->numbers->where('body', '9482390')->first();
+    if (!$number) {
+        return;
+    }    
+});
+
 Route::middleware('checkApiKey')->group(function () {
     Route::post('/send-message', [ApiController::class, 'messageText']);
     Route::post('/send-media', [ApiController::class, 'messageMedia']);
@@ -47,7 +55,9 @@ Route::post('/notify-customer', function (Request $request) {
         return;
     }
 
-    $number = $user->numbers->first()->body;
+    $number = $user->numbers->where('body', $request->sender)->first();
+    if (!$number) return;
+    // $number = $user->numbers->first()->body;
 
     $data = [
         'api_key' => $request->api_key,
