@@ -55,7 +55,7 @@ Route::post('/notify-customer', function (Request $request) {
         return;
     }
 
-    $number = $user->numbers->where('body', $request->sender)->first();
+    $number = $user->numbers->where('body', $request->sender)->first()->body;
     if (!$number) return;
     // $number = $user->numbers->first()->body;
 
