@@ -40,7 +40,7 @@ Route::post('/notify-customer', function (Request $request) {
         'message' => 'string'
     ]);
 
-    $user = User::where('api_key', $validated->api_key)->first();
+    $user = User::where('api_key', $request->api_key)->first();
 
     //Stop if api key doesn't match
     if (!$user) {
@@ -50,10 +50,10 @@ Route::post('/notify-customer', function (Request $request) {
     $number = $user->numbers->first()->body;
 
     $data = [
-        'api_key' => $validated->api_key,
+        'api_key' => $request->api_key,
         'sender' => $number,
-        'number' => $validated->number,
-        'message' => $validated->message
+        'number' => $request->number,
+        'message' => $request->message
     ];
     $curl = curl_init();
 
@@ -93,20 +93,20 @@ Route::post('/save-number', function (Request $request) {
         return;
     }
 
-    $tag = Tag::where('name', $validated->group)->first();
+    $tag = Tag::where('name', $request->group)->first();
     if (!$tag) {
         $tag = Tag::create([
             'user_id' => $user->id,
-            'name' => $validated->group
+            'name' => $request->group
         ]);
     }
-    $alreadyExists = Contact::where('number', $validated->number)->first();
+    $alreadyExists = Contact::where('number', $request->number)->first();
     if (!$alreadyExists) {
         Contact::create([
             'user_id' => $user->id,
             'tag_id' => $tag->id,
-            'name' => $validated->name,
-            'number' => $validated->number
+            'name' => $request->name,
+            'number' => $request->number
         ]);
     }
 });
