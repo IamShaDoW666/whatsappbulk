@@ -103,7 +103,7 @@ Route::post('/save-number', function (Request $request) {
         return;
     }
 
-    $tag = $user->tags->with('contacts')->where('name', $request->group)->first();
+    $tag = $user->tags()->with('contacts')->where('name', $request->group)->first();
     if (!$tag) {
         $tag = Tag::create([
             'user_id' => $user->id,
