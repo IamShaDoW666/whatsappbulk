@@ -19,79 +19,94 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-  return $request->user();
+    return $request->user();
 });
 
 Route::middleware('checkApiKey')->group(function () {
-  Route::post('/send-message', [ApiController::class, 'messageText']);
-  Route::post('/send-media', [ApiController::class, 'messageMedia']);
-  Route::post('/send-button', [ApiController::class, 'messageButton']);
-  Route::post('/send-template', [ApiController::class, 'messageTemplate']);
-  Route::post('/send-list', [ApiController::class, 'messageList']);
+    Route::post('/send-message', [ApiController::class, 'messageText']);
+    Route::post('/send-media', [ApiController::class, 'messageMedia']);
+    Route::post('/send-button', [ApiController::class, 'messageButton']);
+    Route::post('/send-template', [ApiController::class, 'messageTemplate']);
+    Route::post('/send-list', [ApiController::class, 'messageList']);
 });
 Route::post('/generate-qr', [ApiController::class, 'generateQr']);
 
 Route::post('/notify-customer', function (Request $request) {
-  $user = User::where('api_key', $request->api_key)->first();
 
-  //Stop if api key doesn't match
-  if (!$user) {
-    return;
-  }
+    $validated = $request->validate([
+        'api_key' => 'required|string',
+        'sender' => 'string',
+        'number' => 'string',
+        'message' => 'string'
+    ]);
 
-  $number = $user->numbers->first()->body;
+    $user = User::where('api_key', $validated->api_key)->first();
 
-  $data = [
-    'api_key' => $request->api_key,
-    'sender' => $number,
-    'number' => $request->configs['client_phone'],
-    'message' => $request->msg
-  ];
-  $curl = curl_init();
+    //Stop if api key doesn't match
+    if (!$user) {
+        return;
+    }
 
-  curl_setopt_array($curl, array(
-    CURLOPT_URL => 'http://65.2.191.198/send-message',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => '',
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => 'POST',
-    CURLOPT_POSTFIELDS => json_encode($data),
-    CURLOPT_HTTPHEADER => array(
-      'Content-Type: application/json'
-    ),
-  ));
+    $number = $user->numbers->first()->body;
 
-  $response = curl_exec($curl);
+    $data = [
+        'api_key' => $validated->api_key,
+        'sender' => $number,
+        'number' => $validated->number,
+        'message' => $validated->message
+    ];
+    $curl = curl_init();
 
-  curl_close($curl);
-  echo $response;
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'http://65.2.191.198/send-message',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => json_encode($data),
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json'
+        ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+    echo $response;
 });
 
 Route::post('/save-number', function (Request $request) {
-  $user = User::where('api_key', $request->api_key)->first();
-
-  //Stop if api key doesn't match
-  if (!$user) {
-    return;
-  }
-
-  $tag = Tag::where('name', 'Spot Group')->first();
-  if (!$tag) {
-    $tag = Tag::create([
-      'user_id' => $user->id,
-      'name' => 'Spot Group'
+    $validated = $request->validate([
+        'api_key' => 'required|string',
+        'number' => 'string',
+        'group' => 'string',
+        'name' => 'string'
     ]);
-  }
-  $alreadyExists = Contact::where('number', $request->configs['client_phone'])->first();
-  if (!$alreadyExists) {
-    Contact::create([
-      'user_id' => $user->id,
-      'tag_id' => $tag->id,
-      'name' => $request->configs['client_name'],
-      'number' => $request->configs['client_phone']
-    ]);
-  }
+
+    $user = User::where('api_key', $request->api_key)->first();
+
+    //Stop if api key doesn't match
+    if (!$user) {
+        return;
+    }
+
+    $tag = Tag::where('name', $validated->group)->first();
+    if (!$tag) {
+        $tag = Tag::create([
+            'user_id' => $user->id,
+            'name' => $validated->group
+        ]);
+    }
+    $alreadyExists = Contact::where('number', $validated->number)->first();
+    if (!$alreadyExists) {
+        Contact::create([
+            'user_id' => $user->id,
+            'tag_id' => $tag->id,
+            'name' => $validated->name,
+            'number' => $validated->number
+        ]);
+    }
 });
